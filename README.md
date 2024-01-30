@@ -1,6 +1,6 @@
 # ChitChat - Real-Time Chat Application
 
-![ChitChat Logo](Logo.png)
+![ChitChat Logo](logo.png)
 
 ChitChat is a real-time chat application built with Django and utilizes WebSockets for instant messaging.
 
