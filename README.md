@@ -36,8 +36,9 @@ ChitChat is a real-time chat application built with Django and utilizes WebSocke
    ```shell
    python manage.py migrate
    ```
-7. ```shell
-python manage.py runserver
-```
+6.
+   ```shell
+   python manage.py runserver
+   ```
 
    
