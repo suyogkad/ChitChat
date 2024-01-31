@@ -17,8 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include  # include is important for including app-specific urls
+from chat.views import home  # Add this import
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls')),  # Include the URLs from the chat app
+    path('chat/', include('chat.urls')),
+    path('', home, name='home'),  # Add this line for the homepage
 ]
+
+

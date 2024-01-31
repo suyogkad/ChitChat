@@ -5,6 +5,11 @@
 </head>
 <body>
     <h1>Chat Messages</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Message</button>
+    </form>
     <ul>
         {% for message in messages %}
             <li>{{ message.timestamp }}: <strong>{{ message.sender }}</strong> to <strong>{{ message.receiver }}</strong> - {{ message.message }}</li>
