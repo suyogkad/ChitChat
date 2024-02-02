@@ -2,21 +2,82 @@
 <html>
 <head>
     <title>Chat Messages</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 30%;
+            background-color: #ededed;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+        .chat-area {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .user {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .user:hover {
+            background-color: #e0e0e0;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+        .sent {
+            background-color: #dcf8c6;
+            margin-left: auto;
+        }
+        .received {
+            background-color: #f0f0f0;
+        }
+        .logout {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            background: #f0f0f0;
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chat Messages</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send Message</button>
-    </form>
-    <ul>
-        {% for message in messages %}
-            <li>{{ message.timestamp }}: <strong>{{ message.sender }}</strong> to <strong>{{ message.receiver }}</strong> - {{ message.message }}</li>
-        {% endfor %}
-    </ul>
-<!--<a href="">Logout</a>-->
-
-
+    <div class="chat-container">
+        <div class="sidebar">
+            <h2>Contacts</h2>
+            <!-- Example users, replace with dynamic content -->
+            <div class="user">User 1</div>
+            <div class="user">User 2</div>
+            <div class="user">User 3</div>
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </div>
+        <div class="chat-area">
+            <h2>Conversation</h2>
+            <!-- Example conversation, replace with dynamic content -->
+            <div class="message sent">This is a message I sent.</div>
+            <div class="message received">This is a message I received.</div>
+            <!-- Message form -->
+            <form method="post" style="margin-top: 20px;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

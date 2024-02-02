@@ -52,7 +52,7 @@ def message_list(request):
     else:
         form = MessageForm()
 
-    # Filter messages for the current user, either sent or received
+    # Filtering messages for the current user, either sent or received
     messages = Message.objects.filter(sender=request.user) | Message.objects.filter(receiver=request.user)
 
     return render(request, 'chat/message_list.html', {'messages': messages.order_by('-timestamp'), 'form': form})
