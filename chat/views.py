@@ -35,3 +35,6 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'chat/signup.html', {'form': form})
+
+
+
