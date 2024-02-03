@@ -59,13 +59,13 @@
 <body>
     <div class="chat-container">
         <div class="sidebar">
-            <h2>Contacts</h2>
-            <!-- Example users, replace with dynamic content -->
-            <div class="user">User 1</div>
-            <div class="user">User 2</div>
-            <div class="user">User 3</div>
-            <a href="{% url 'logout' %}" class="logout">Logout</a>
-        </div>
+    <h2>Contacts</h2>
+    {% for user in users %}
+        <div class="user" onclick="selectUser('{{ user.username }}')">{{ user.username }}</div>
+    {% endfor %}
+    <a href="{% url 'logout' %}" class="logout">Logout</a>
+</div>
+
         <div class="chat-area">
             <h2>Conversation</h2>
             <!-- Example conversation, replace with dynamic content -->

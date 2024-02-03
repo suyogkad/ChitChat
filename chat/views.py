@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Message
 from .forms import SignUpForm, MessageForm
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def home(request):
@@ -22,6 +24,9 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'chat/signup.html', {'form': form})
 
+def custom_logout(request):
+    logout(request)
+    return redirect('/chat/login/')  # Redirect to the login page
 
 @login_required
 def message_list(request):
@@ -35,7 +40,8 @@ def message_list(request):
     else:
         form = MessageForm()
 
-    users = User.objects.exclude(id=request.user.id)  # Exclude the current user
+    # Get all users except the current one
+    users = User.objects.exclude(id=request.user.id)
     messages = Message.objects.filter(sender=request.user) | Message.objects.filter(receiver=request.user)
 
     return render(request, 'chat/message_list.html', {
