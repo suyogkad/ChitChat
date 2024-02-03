@@ -55,28 +55,40 @@
             text-decoration: none;
         }
     </style>
+    <script>
+        function selectUser(username) {
+            window.location.href = `{% url 'message_list_with_user' username='__username__' %}`.replace('__username__', username);
+        }
+    </script>
 </head>
 <body>
     <div class="chat-container">
         <div class="sidebar">
-    <h2>Contacts</h2>
-    {% for user in users %}
-        <div class="user" onclick="selectUser('{{ user.username }}')">{{ user.username }}</div>
-    {% endfor %}
-    <a href="{% url 'logout' %}" class="logout">Logout</a>
-</div>
-
+            <h2>Contacts</h2>
+            {% for user in users %}
+                <div class="user" onclick="selectUser('{{ user.username }}')">{{ user.username }}</div>
+            {% endfor %}
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </div>
         <div class="chat-area">
-            <h2>Conversation</h2>
-            <!-- Example conversation, replace with dynamic content -->
-            <div class="message sent">This is a message I sent.</div>
-            <div class="message received">This is a message I received.</div>
-            <!-- Message form -->
-            <form method="post" style="margin-top: 20px;">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Send Message</button>
-            </form>
+            {% if selected_user %}
+                <h2>Conversation with {{ selected_user.username }}</h2>
+                {% for message in messages %}
+                    <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+                        {{ message.timestamp }} - {{ message.message }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>Welcome to ChitChat</h2>
+                <p>Select a conversation to start chitchatting.</p>
+            {% endif %}
+            {% if selected_user %}
+                <form method="post" style="margin-top: 20px;">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Send Message</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 </body>
