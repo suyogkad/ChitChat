@@ -22,7 +22,8 @@
         .chat-area {
             flex-grow: 1;
             padding: 20px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         .user {
             padding: 10px;
@@ -32,20 +33,30 @@
         .user:hover {
             background-color: #e0e0e0;
         }
-        .message {
+        .message-box {
+            display: flex;
+            justify-content: flex-start; /* Align received messages to start */
             margin: 10px 0;
+        }
+        .sent .message-box {
+            justify-content: flex-end; /* Align sent messages to end */
+        }
+        .message-content {
             padding: 10px;
             border-radius: 8px;
-            max-width: 70%;
+            background-color: #f0f0f0; /* Default for received messages */
+            max-width: 60%;
+            word-wrap: break-word;
         }
-        .sent {
+        .sent .message-content {
             background-color: #dcf8c6;
-            margin-left: auto;
         }
-        .received {
-            background-color: #f0f0f0;
+        .timestamp {
+            font-size: 0.75em;
+            color: grey;
+            padding: 0 10px;
         }
-        .logout {
+        .logout, .signed-in-user {
             display: block;
             margin-top: 20px;
             text-align: center;
@@ -54,12 +65,30 @@
             padding: 10px;
             text-decoration: none;
         }
-    </style>
-    <script>
-        function selectUser(username) {
-            window.location.href = `{% url 'message_list_with_user' username='__username__' %}`.replace('__username__', username);
+        .message-input {
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            margin-top: auto;
+            background-color: #f0f0f0;
+            margin: 10px;
         }
-    </script>
+        .send-button {
+            width: 100%;
+            background-color: #075E54;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .chitchat-logo {
+            max-width: 100px; /* Adjust based on your logo size */
+            display: block;
+            margin: 0 auto 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="chat-container">
@@ -69,27 +98,34 @@
                 <div class="user" onclick="selectUser('{{ user.username }}')">{{ user.username }}</div>
             {% endfor %}
             <a href="{% url 'logout' %}" class="logout">Logout</a>
+            <div class="signed-in-user">Signed in as {{ request.user.username }}</div>
         </div>
         <div class="chat-area">
             {% if selected_user %}
                 <h2>Conversation with {{ selected_user.username }}</h2>
-                {% for message in messages %}
-                    <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
-                        {{ message.timestamp }} - {{ message.message }}
-                    </div>
-                {% endfor %}
+                <div style="flex-grow: 1; overflow-y: auto;">
+                    {% for message in messages %}
+                        <div class="{% if message.sender == request.user %}sent{% else %}received{% endif %} message-box">
+                            <div class="message-content">{{ message.message }}</div>
+                            <div class="timestamp">{{ message.timestamp|date:"M d, Y. P" }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <form method="post" style="display: flex; flex-direction: column;">
+                    {% csrf_token %}
+                    <textarea name="message" class="message-input" placeholder="Type a message..." required></textarea>
+                    <button type="submit" class="send-button">Send</button>
+                </form>
             {% else %}
                 <h2>Welcome to ChitChat</h2>
                 <p>Select a conversation to start chitchatting.</p>
             {% endif %}
-            {% if selected_user %}
-                <form method="post" style="margin-top: 20px;">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Send Message</button>
-                </form>
-            {% endif %}
         </div>
     </div>
+    <script>
+        function selectUser(username) {
+            window.location.href = `{% url 'message_list_with_user' username='__username__' %}`.replace('__username__', username);
+        }
+    </script>
 </body>
 </html>
