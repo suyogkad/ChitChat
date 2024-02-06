@@ -1,14 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .signup-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .info-icon {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            color: #999;
+            cursor: pointer;
+        }
+        .info-icon:hover + .form-hint,
+        .form-group input:focus + .info-icon + .form-hint {
+            display: block;
+        }
+        .form-hint {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 280px;
+            top: 30px;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 0.8em;
+            color: #666;
+        }
+        .submit-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign up</button>
-    </form>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <span class="info-icon" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#999'">ℹ️</span>
+                <div class="form-hint">
+                    Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password1">Password:</label>
+                <ChatGPT
+
+input type="password" id="password1" name="password1" required>
+<span class="info-icon" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#999'">ℹ️</span>
+<div class="form-hint">
+<ul>
+<li>Your password can’t be too similar to your other personal information.</li>
+<li>Your password must contain at least 8 characters.</li>
+<li>Your password can’t be a commonly used password.</li>
+<li>Your password can’t be entirely numeric.</li>
+</ul>
+</div>
+</div>
+<div class="form-group">
+<label for="password2">Password confirmation:</label>
+<input type="password" id="password2" name="password2" required>
+<span class="info-icon" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#999'">ℹ️</span>
+<div class="form-hint">Enter the same password as before, for verification.</div>
+</div>
+<div class="form-group">
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required>
+<span class="info-icon" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#999'">ℹ️</span>
+<div class="form-hint">Required. Inform a valid email address.</div>
+</div>
+<button type="submit" class="submit-button">Sign up</button>
+</form>
+</div>
+
 </body>
 </html>

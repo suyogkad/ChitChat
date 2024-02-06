@@ -1,14 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+{% load static %}
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+<!--    <link rel="stylesheet" href="style.css"> &lt;!&ndash; Ensure this path is correct &ndash;&gt;-->
 </head>
+<style>
+
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 100px; /* Adjust based on the actual logo size */
+    height: auto;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 16px;
+    background-color: #f8f9fa; /* Slightly off-white background */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* Subtle inset shadow */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.form-group input:focus {
+    border-color: #80bdff; /* Highlight focus with a different border color */
+    outline: 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 0 0 0.2rem rgba(0,123,255,.25); /* Focus shadow */
+}
+
+.login-button {
+    width:100%;
+    background-color: #28a745; /* Matching green color */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 20px; /* Matching rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for consistency */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover */
+}
+
+.login-button:hover {
+    background-color: #218838; /* Darker shade for hover effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow for hover */
+}
+
+.register-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-section a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-section a:hover {
+    text-decoration: underline;
+}
+
+
+</style>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <div class="logo-container">
+            <!-- Update the src attribute to use the static tag -->
+            <img src="{% static 'logo.svg' %}" alt="Logo" class="logo">
+        </div>
+        <h2>Login</h2>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <div class="register-section">
+            Don't have an account?<a href="{% url 'signup' %}" class="signup">Register</a>
+        </div>
+    </div>
 </body>
 </html>

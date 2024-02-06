@@ -58,3 +58,4 @@ def message_list(request, username=None):
         'form': form,
         'selected_user': selected_user
     })
+
