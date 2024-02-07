@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <title>Chat Messages</title>
     <style>
@@ -117,6 +118,9 @@
                     <button type="submit" class="send-button">Send</button>
                 </form>
             {% else %}
+            <div class="logo-container">
+                <img src="{% static 'logo.svg' %}" alt="Logo" class="logo" height="50%" width="50%">
+            </div>
                 <h2>Welcome to ChitChat</h2>
                 <p>Select a conversation to start chitchatting.</p>
             {% endif %}
