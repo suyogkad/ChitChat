@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: #5b6cfd;
             margin: 0;
             padding: 0;
@@ -18,165 +22,142 @@
         }
         .signup-container {
             background-color: #fff;
-            padding: 40px 60px;
+            padding: 40px;
             border-radius: 8px;
-            width: 350px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
-        .signup-container h2 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
         .form-group {
-            position: relative;
-            margin-bottom: 24px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .form-group input.invalid {
-            border-color: #e74c3c;
-            /* Red color when invalid */
-        }
-        .form-group input.valid {
-            border-color: #2ecc71;
-            /* Green color when valid */
-        }
-        .form-group input::placeholder {
-            color: #aaa;
+            margin-bottom: 1rem;
         }
         .password-criteria {
-            font-size: 13px;
-            color: #999;
-            margin-top: 10px;
-        }
-        .password-criteria li {
-            list-style: none;
-            margin: 5px 0;
-        }
-        .password-criteria span {
             color: #e74c3c;
+            font-size: 0.8rem;
+            margin-bottom: 0;
         }
-        .password-criteria .valid {
-            color: #2ecc71;
-        }
-        .password-criteria .invalid {
-            color: #e74c3c;
-        }
-        .submit-button {
-            display: block;
-            width: 100%;
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 18px;
-            margin-top: 8px;
-            transition: background-color 0.3s;
-        }
-        .submit-button:hover {
-            background-color: #43A047;
+        .password-criteria.valid {
+            color: #28a745;
         }
         .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 10px;
             cursor: pointer;
-            color: #999;
         }
+        .valid-input {
+            border-color: #28a745 !important;
+        }
+
+        .invalid-input {
+            border-color: #e74c3c !important;
+        }
+        .invisible {
+        visibility: hidden;
+        }
+        .sign-in{
+        padding-top: 10px;
+<!--        margin-left:40%;-->
+<!--        text-align: center;-->
     </style>
 </head>
 <body>
     <div class="signup-container">
-        <h2>Create your account</h2>
-        <form method="post">
-            {% csrf_token %}
+        <h2 class="text-center">Create your account</h2>
+        <form>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="john@fieldboom.com" required>
+                <input type="email" class="form-control" id="email" placeholder="john@fieldboom.com" required>
             </div>
             <div class="form-group">
                 <label for="full_name">Full name</label>
-                <input type="text" id="full_name" name="full_name" placeholder="John Doe" required>
+                <input type="text" class="form-control" id="full_name" placeholder="John Doe" required>
             </div>
             <div class="form-group">
                 <label for="password1">Password</label>
-                <input type="password" id="password1" name="password1" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('password1', this)">👁️</span>
-                <ul class="password-criteria">
-                    <li id="minLength">8 characters minimum <span>✖</span></li>
-                    <li id="number">Includes a number <span>✖</span></li>
-                    <li id="uppercase">Includes an uppercase letter <span>✖</span></li>
-                    <li id="specialChar">Includes a special character <span>✖</span></li>
-                </ul>
+                <input type="password" class="form-control" id="password1" required>
+                <small id="passwordHelpBlock" class="password-criteria form-text">
+                    Must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                </small>
+<!--                <span class="toggle-password">-->
+<!--                    <i class="fa fa-eye" onclick="togglePasswordVisibility('password1', this)"></i>-->
+<!--                </span>-->
             </div>
             <div class="form-group">
-                <label for="password2">Password confirmation</label>
-                <input type="password" id="password2" name="password2" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('password2', this)">👁️</span>
-                <div id="passwordMatch" class="password-criteria">Password match: <span>✖</span></div>
+                <label for="password2">Confirm Password</label>
+                <input type="password" class="form-control" id="password2" required>
+<!--                <span class="toggle-password">-->
+<!--                    <i class="fa fa-eye" onclick="togglePasswordVisibility('password2', this)"></i>-->
+<!--                </span>-->
             </div>
-            <button type="submit" class="submit-button">Continue</button>
+            <button type="submit" class="btn btn-primary btn-block">Continue</button>
+            <br>
+            <p id="sign-in">or, back to <a href="#">Sign in</a></p>
         </form>
     </div>
-    <script>
-    const password1 = document.getElementById('password1');
-    const password2 = document.getElementById('password2');
-    const minLength = document.getElementById('minLength');
-    const number = document.getElementById('number');
-    const uppercase = document.getElementById('uppercase');
-    const specialChar = document.getElementById('specialChar');
-    const passwordMatch = document.getElementById('passwordMatch');
 
-    function togglePasswordVisibility(passwordId, toggleIcon) {
+    <script>
+    function togglePasswordVisibility(passwordId, icon) {
         const passwordInput = document.getElementById(passwordId);
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        toggleIcon.textContent = toggleIcon.textContent === '👁️' ? '🔒' : '👁️';
+        icon.classList.toggle('fa-eye-slash');
     }
 
-    function updateCriteria(criteria, isValid) {
-        criteria.className = isValid ? 'valid' : 'invalid';
-        criteria.querySelector('span').textContent = isValid ? '✔' : '✖';
-    }
+    const password1 = document.getElementById('password1');
+    const password2 = document.getElementById('password2');
+    const passwordHelpBlock = document.getElementById('passwordHelpBlock');
 
     function validatePassword() {
-        const val = password1.value;
-        const hasMinLength = val.length >= 8;
-        const hasNumber = /\d/.test(val);
-        const hasUppercase = /[A-Z]/.test(val);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+        const passVal = password1.value;
+        const minLength = passVal.length >= 8;
+        const number = /\d/.test(passVal);
+        const uppercase = /[A-Z]/.test(passVal);
+        const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(passVal);
 
-        updateCriteria(minLength, hasMinLength);
-        updateCriteria(number, hasNumber);
-        updateCriteria(uppercase, hasUppercase);
-        updateCriteria(specialChar, hasSpecialChar);
-
-        password1.className = hasMinLength && hasNumber && hasUppercase && hasSpecialChar ? 'valid' : 'invalid';
+        passwordHelpBlock.textContent = message;
+        passwordHelpBlock.style.color = message === '' ? '#28a745' : '#e74c3c';
+        password1.style.borderColor = message === '' ? '#28a745' : '#e74c3c';
     }
 
-    function confirmPassword() {
-        const isMatch = password1.value === password2.value && password2.value !== '';
-        passwordMatch.querySelector('span').textContent = isMatch ? '✔' : '✖';
-        passwordMatch.className = isMatch ? 'valid' : 'invalid';
-        password2.className = isMatch ? 'valid' : 'invalid';
+    function checkPasswordMatch() {
+        const isMatch = password1.value === password2.value;
+        password2.style.borderColor = isMatch ? '#28a745' : '#e74c3c';
     }
 
     password1.addEventListener('input', validatePassword);
-    password2.addEventListener('input', confirmPassword);
-</script>
+    password2.addEventListener('input', checkPasswordMatch);
+
+
+        function validatePassword() {
+        const passVal = password1.value;
+        const minLength = passVal.length >= 8;
+        const number = /\d/.test(passVal);
+        const uppercase = /[A-Z]/.test(passVal);
+        const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(passVal);
+        const allValid = minLength && number && uppercase && specialChar;
+
+        passwordHelpBlock.className = allValid ? 'password-criteria form-text invisible' : 'password-criteria form-text';
+        password1.className = allValid ? 'form-control valid-input' : 'form-control invalid-input';
+    }
+
+        function checkInputValidity(input) {
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (input.id === 'full_name' && nameRegex.test(input.value) ||
+                input.id === 'email' && emailRegex.test(input.value)) {
+                input.classList.add('valid-input');
+                input.classList.remove('invalid-input');
+            } else {
+                input.classList.remove('valid-input');
+                input.classList.add('invalid-input');
+            }
+        }
+
+        document.getElementById('full_name').addEventListener('input', function() {
+            checkInputValidity(this);
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            checkInputValidity(this);
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </body>
 </html>
