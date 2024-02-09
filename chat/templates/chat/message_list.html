@@ -98,6 +98,7 @@
             {% for user in users %}
                 <div class="user" onclick="selectUser('{{ user.username }}')">{{ user.username }}</div>
             {% endfor %}
+<!--            logout button-->
             <a href="{% url 'logout' %}" class="logout">Logout</a>
             <div class="signed-in-user">Signed in as {{ request.user.username }}</div>
         </div>
