@@ -10,5 +10,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', LoginView.as_view(template_name='chat/login.html'), name='login'),
     path('logout/', views.custom_logout, name='logout'),
+    # url path for logged in user
     path('messages/<str:username>/', message_list, name='message_list_with_user'),
 ]
